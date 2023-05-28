@@ -1,0 +1,841 @@
+// 1.A
+
+#include <iostream>
+#include <string>
+
+struct Employee {
+    std::string name;
+    int id;
+    float salary;
+};
+
+int main() {
+    // Declare and initialize an employee
+    Employee employee;
+    employee.name = "John Doe";
+    employee.id = 12345;
+    employee.salary = 5000.50;
+
+    // Print employee details
+    std::cout << "Employee Details" << std::endl;
+    std::cout << "Name: " << employee.name << std::endl;
+    std::cout << "ID: " << employee.id << std::endl;
+    std::cout << "Salary: " << employee.salary << std::endl;
+
+    return 0;
+}
+
+//1.B
+
+#include <stdio.h>
+
+// Structure to store employee details
+struct Employee {
+    char name[100];
+    float salary;
+};
+
+int main() {
+    int numEmployees;
+
+    printf("Enter the number of employees: ");
+    scanf("%d", &numEmployees);
+
+    struct Employee employees[numEmployees];
+    float totalSalary = 0.0;
+
+    // Input employee details
+    for (int i = 0; i < numEmployees; i++) {
+        printf("\nEnter details for Employee %d:\n", i + 1);
+        printf("Name: ");
+        scanf("%s", employees[i].name);
+        printf("Salary: ");
+        scanf("%f", &employees[i].salary);
+
+        totalSalary += employees[i].salary;
+    }
+
+    // Display total salary
+    printf("\nTotal Salary of all employees: $%.2f\n", totalSalary);
+
+    return 0;
+}
+
+//2.A
+
+#include <iostream>
+#include <string>
+
+struct Address {
+    std::string street;
+    std::string city;
+    int pin;
+};
+
+struct Person {
+    std::string name;
+    Address address;
+};
+
+int main() {
+    Person person;
+    person.name = "John Doe";
+    person.address.street = "123 Main Street";
+    person.address.city = "New York";
+    person.address.pin = 10001;
+
+    std::cout << "Person's name: " << person.name << std::endl;
+    std::cout << "Address details:" << std::endl;
+    std::cout << "Street: " << person.address.street << std::endl;
+    std::cout << "City: " << person.address.city << std::endl;
+    std::cout << "PIN: " << person.address.pin << std::endl;
+
+    return 0;
+}
+
+//2.B
+
+#include <iostream>
+using namespace std;
+
+struct Person {
+    string name;
+    int age;
+    string address;
+};
+
+void printPersonDetails(const Person& person) {
+    cout << "Name: " << person.name << endl;
+    cout << "Age: " << person.age << endl;
+    cout << "Address: " << person.address << endl;
+    cout << "--------------------------" << endl;
+}
+
+int main() {
+    const int MAX_PERSONS = 5;  // Maximum number of persons
+    Person persons[MAX_PERSONS];  // Array of structures to hold person details
+
+    cout << "Enter details of " << MAX_PERSONS << " persons:" << endl;
+
+    for (int i = 0; i < MAX_PERSONS; i++) {
+        cout << "Person " << i + 1 << ":" << endl;
+        cout << "Name: ";
+        getline(cin, persons[i].name);
+        cout << "Age: ";
+        cin >> persons[i].age;
+        cin.ignore();  // Ignore the remaining newline character
+        cout << "Address: ";
+        getline(cin, persons[i].address);
+    }
+
+    cout << endl << "Person details:" << endl;
+    for (int i = 0; i < MAX_PERSONS; i++) {
+        cout << "Person " << i + 1 << ":" << endl;
+        printPersonDetails(persons[i]);
+    }
+
+    return 0;
+}
+
+//3.A
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Book {
+    string title;
+    string author;
+    double price;
+    float rating;
+};
+
+int main() {
+    int numBooks;
+    cout << "Enter the number of books: ";
+    cin >> numBooks;
+
+    // Declare an array of structures to store the books
+    Book books[numBooks];
+
+    // Input details of each book
+    for (int i = 0; i < numBooks; i++) {
+        cout << "\nEnter details for Book " << i + 1 << ":\n";
+        cout << "Title: ";
+        cin.ignore();  // To clear the input buffer before getline
+        getline(cin, books[i].title);
+        cout << "Author: ";
+        getline(cin, books[i].author);
+        cout << "Price: ";
+        cin >> books[i].price;
+        cout << "Rating: ";
+        cin >> books[i].rating;
+    }
+
+    // Display the details of all books
+    cout << "\nBook Details:\n";
+    for (int i = 0; i < numBooks; i++) {
+        cout << "\nBook " << i + 1 << ":\n";
+        cout << "Title: " << books[i].title << endl;
+        cout << "Author: " << books[i].author << endl;
+        cout << "Price: " << books[i].price << endl;
+        cout << "Rating: " << books[i].rating << endl;
+    }
+
+    return 0;
+}
+
+//3.B
+
+#include <stdio.h>
+
+#define MAX_BOOKS 100
+
+// Structure to represent a book
+typedef struct {
+    char title[100];
+    float rating;
+    float price;
+} Book;
+
+// Function to find the book with the highest rating
+Book findHighestRatingBook(Book books[], int numBooks) {
+    Book highestRatedBook = books[0];
+
+    for (int i = 1; i < numBooks; i++) {
+        if (books[i].rating > highestRatedBook.rating) {
+            highestRatedBook = books[i];
+        }
+    }
+
+    return highestRatedBook;
+}
+
+// Function to find the book with the lowest price
+Book findLowestPriceBook(Book books[], int numBooks) {
+    Book lowestPricedBook = books[0];
+
+    for (int i = 1; i < numBooks; i++) {
+        if (books[i].price < lowestPricedBook.price) {
+            lowestPricedBook = books[i];
+        }
+    }
+
+    return lowestPricedBook;
+}
+
+int main() {
+    Book books[MAX_BOOKS];
+    int numBooks;
+
+    // Get the number of books from the user
+    printf("Enter the number of books: ");
+    scanf("%d", &numBooks);
+
+    // Read book details from the user
+    for (int i = 0; i < numBooks; i++) {
+        printf("\nBook %d:\n", i + 1);
+        printf("Enter the title: ");
+        scanf(" %[^\n]s", books[i].title);
+        printf("Enter the rating: ");
+        scanf("%f", &books[i].rating);
+        printf("Enter the price: ");
+        scanf("%f", &books[i].price);
+    }
+
+    // Find the book with the highest rating
+    Book highestRatedBook = findHighestRatingBook(books, numBooks);
+
+    // Find the book with the lowest price
+    Book lowestPricedBook = findLowestPriceBook(books, numBooks);
+
+    // Display the results
+    printf("\nBook with the highest rating:\n");
+    printf("Title: %s\n", highestRatedBook.title);
+    printf("Rating: %.2f\n", highestRatedBook.rating);
+    printf("Price: %.2f\n", highestRatedBook.price);
+
+    printf("\nBook with the lowest price:\n");
+    printf("Title: %s\n", lowestPricedBook.title);
+    printf("Rating: %.2f\n", lowestPricedBook.rating);
+    printf("Price: %.2f\n", lowestPricedBook.price);
+
+    return 0;
+}
+
+//4
+
+Data Structure Representation:
+
+Pointer to a structure: It points to a specific structure in memory. The pointer holds the address of the structure, allowing access to the structure's members using the arrow operator (->).
+Pointer to an array: It points to the first element of an array. The pointer stores the address of the first element, and you can access other elements of the array by incrementing or decrementing the pointer.
+Memory Allocation:
+
+Pointer to a structure: The structure pointed to by the pointer may or may not be dynamically allocated. It can point to a structure that is allocated on the stack or heap, depending on how it is created.
+Pointer to an array: The pointer points to the memory block allocated for an array. Arrays can be statically allocated (at compile time) or dynamically allocated (at runtime) using functions like malloc() or calloc().
+Pointer Arithmetic:
+
+Pointer to a structure: Pointer arithmetic on structure pointers is not common. Incrementing or decrementing a structure pointer moves it by the size of the entire structure, not by individual members.
+Pointer to an array: Pointer arithmetic on array pointers is widely used. Incrementing or decrementing an array pointer moves it by the size of a single element in the array.
+Accessing Elements:
+
+Pointer to a structure: To access members of a structure through a structure pointer, you use the arrow operator (->). For example: ptr->member.
+Pointer to an array: To access elements of an array through an array pointer, you can use the array subscript operator ([]). For example: ptr[index] or *(ptr + index).
+Overall, the main difference between a pointer to a structure and a pointer to an array lies in the way they represent and access data. A pointer to a structure points to a specific structure, allowing access to its members, while a pointer to an array points to the first element of an array, enabling access to subsequent elements through pointer arithmetic.
+
+
+//5.A
+
+#include <iostream>
+#include <string>
+
+struct Student {
+    std::string name;
+    int roll;
+    float marks;
+};
+
+int main() {
+    // Create a pointer to the Student structure
+    Student* studentPtr = new Student;
+
+    // Input the details of the student using the pointer
+    std::cout << "Enter name: ";
+    std::getline(std::cin, studentPtr->name);
+
+    std::cout << "Enter roll number: ";
+    std::cin >> studentPtr->roll;
+
+    std::cout << "Enter marks: ";
+    std::cin >> studentPtr->marks;
+
+    // Display the details of the student
+    std::cout << "\nStudent Details:\n";
+    std::cout << "Name: " << studentPtr->name << "\n";
+    std::cout << "Roll Number: " << studentPtr->roll << "\n";
+    std::cout << "Marks: " << studentPtr->marks << "\n";
+
+    // Deallocate the memory
+    delete studentPtr;
+
+    return 0;
+}
+
+
+
+//5.B
+
+#include <stdio.h>
+
+struct Student {
+    int rollNumber;
+    char name[50];
+    float marks;
+};
+
+void swap(struct Student *a, struct Student *b) {
+    struct Student temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void sortArray(struct Student *students, int size) {
+    int i, j;
+    for (i = 0; i < size - 1; i++) {
+        for (j = 0; j < size - i - 1; j++) {
+            if ((students + j)->rollNumber > (students + j + 1)->rollNumber) {
+                swap(students + j, students + j + 1);
+            }
+        }
+    }
+}
+
+void displayArray(struct Student *students, int size) {
+    int i;
+    for (i = 0; i < size; i++) {
+        printf("Roll Number: %d\n", (students + i)->rollNumber);
+        printf("Name: %s\n", (students + i)->name);
+        printf("Marks: %.2f\n\n", (students + i)->marks);
+    }
+}
+
+int main() {
+    struct Student students[5];
+    int i;
+
+    printf("Enter details of 5 students:\n");
+    for (i = 0; i < 5; i++) {
+        printf("Student %d\n", i + 1);
+        printf("Enter Roll Number: ");
+        scanf("%d", &(students + i)->rollNumber);
+        printf("Enter Name: ");
+        scanf("%s", (students + i)->name);
+        printf("Enter Marks: ");
+        scanf("%f", &(students + i)->marks);
+        printf("\n");
+    }
+
+    sortArray(students, 5);
+
+    printf("Sorted List of Students:\n");
+    displayArray(students, 5);
+
+    return 0;
+}
+
+
+//6
+
+Text Files:
+
+Text files store data in the form of plain text, where each character is represented by its corresponding ASCII or Unicode value.
+These files are human-readable and can be opened and edited with a simple text editor.
+Text files are typically used for storing and processing textual data, such as configuration files, program source code, log files, and so on.
+In C programming, text files are read and written using functions like fopen(), fscanf(), fprintf(), and fclose().
+When reading from a text file, C treats newline characters ('\n') as the end of a line, allowing you to process data line by line.
+When writing to a text file, C automatically converts the data into its corresponding character representation.
+Binary Files:
+
+Binary files store data in its raw, binary form, without any special interpretation or formatting.
+These files are not human-readable and require specific programs or utilities to view or modify their contents.
+Binary files are commonly used for storing complex data structures, such as images, audio files, video files, databases, and serialized objects.
+In C programming, binary files are read and written using functions like fread(), fwrite(), fseek(), and fclose().
+Reading from a binary file allows you to directly access the binary data as it is stored in memory, without any implicit conversions.
+Writing to a binary file allows you to store the raw binary data without any additional transformations.
+It's worth noting that the choice between text files and binary files depends on the nature of the data you want to store or process. Text files are suitable for human-readable data, while binary files are more appropriate for non-textual or structured
+
+//7.A
+
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char input[100];
+
+    // Open the file in append mode
+    file = fopen("data.txt", "a");
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    // Prompt the user for input
+    printf("Enter text to append (max 100 characters):\n");
+    fgets(input, sizeof(input), stdin);
+
+    // Append the entered text to the file
+    fprintf(file, "%s", input);
+
+    // Close the file
+    fclose(file);
+
+    printf("Text appended to the file successfully.\n");
+
+    return 0;
+}
+
+//7.B
+
+#include <stdio.h>
+
+#define MAX_LENGTH 1000
+
+int main() {
+    FILE *file;
+    char line[MAX_LENGTH];
+
+    // Open the file in read mode
+    file = fopen("data.txt", "r");
+    if (file == NULL) {
+        printf("Could not open the file.\n");
+        return 1;
+    }
+
+    // Read and display the contents of the file line by line
+    while (fgets(line, MAX_LENGTH, file) != NULL) {
+        printf("%s", line);
+    }
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
+
+//7.C
+
+#include <stdio.h>
+
+typedef struct {
+    char name[50];
+    int roll;
+    float marks;
+} Student;
+
+int main() {
+    FILE *file;
+    Student student;
+
+    // Open the file in binary write mode
+    file = fopen("students.dat", "wb");
+    if (file == NULL) {
+        printf("Unable to create file.\n");
+        return 1;
+    }
+
+    int numStudents;
+    printf("Enter the number of students: ");
+    scanf("%d", &numStudents);
+
+    for (int i = 0; i < numStudents; i++) {
+        printf("\nEnter details of student %d:\n", i + 1);
+
+        printf("Name: ");
+        scanf("%s", student.name);
+
+        printf("Roll: ");
+        scanf("%d", &student.roll);
+
+        printf("Marks: ");
+        scanf("%f", &student.marks);
+
+        // Write student record to the file
+        fwrite(&student, sizeof(Student), 1, file);
+    }
+
+    // Close the file
+    fclose(file);
+
+    printf("\nStudent records have been written to students.dat.\n");
+
+    return 0;
+}
+
+//7.D
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Student {
+    int rollNumber;
+    char name[50];
+    float marks;
+};
+
+int main() {
+    FILE *file;
+    struct Student student;
+    int rollNumber, found = 0;
+
+    // Open the file in binary mode for reading
+    file = fopen("students.dat", "rb");
+    if (file == NULL) {
+        printf("Failed to open the file.\n");
+        return 1;
+    }
+
+    printf("Enter the roll number of the student: ");
+    scanf("%d", &rollNumber);
+
+    // Calculate the position of the record
+    long int position = (rollNumber - 1) * sizeof(struct Student);
+
+    // Move the file pointer to the desired position
+    fseek(file, position, SEEK_SET);
+
+    // Read the record from the file
+    fread(&student, sizeof(struct Student), 1, file);
+
+    // Check if the roll number exists
+    if (student.rollNumber == rollNumber) {
+        printf("Student details:\n");
+        printf("Roll Number: %d\n", student.rollNumber);
+        printf("Name: %s\n", student.name);
+        printf("Marks: %.2f\n", student.marks);
+        found = 1;
+    } else {
+        printf("Student with roll number %d not found.\n", rollNumber);
+    }
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
+
+//8
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Record {
+    int id;
+    char name[50];
+};
+
+void createRecord() {
+    struct Record record;
+    FILE *file = fopen("records.txt", "ab");
+    
+    printf("Enter ID: ");
+    scanf("%d", &record.id);
+    
+    printf("Enter Name: ");
+    scanf("%s", record.name);
+    
+    fwrite(&record, sizeof(struct Record), 1, file);
+    fclose(file);
+    
+    printf("Record created successfully.\n");
+}
+
+void readRecords() {
+    struct Record record;
+    FILE *file = fopen("records.txt", "rb");
+    
+    while (fread(&record, sizeof(struct Record), 1, file) == 1) {
+        printf("ID: %d, Name: %s\n", record.id, record.name);
+    }
+    
+    fclose(file);
+}
+
+void updateRecord() {
+    int searchId;
+    struct Record record;
+    FILE *file = fopen("records.txt", "r+b");
+    
+    printf("Enter the ID of the record to update: ");
+    scanf("%d", &searchId);
+    
+    while (fread(&record, sizeof(struct Record), 1, file) == 1) {
+        if (record.id == searchId) {
+            printf("Enter new ID: ");
+            scanf("%d", &record.id);
+            
+            printf("Enter new Name: ");
+            scanf("%s", record.name);
+            
+            fseek(file, -sizeof(struct Record), SEEK_CUR);
+            fwrite(&record, sizeof(struct Record), 1, file);
+            
+            printf("Record updated successfully.\n");
+            fclose(file);
+            return;
+        }
+    }
+    
+    printf("Record with ID %d not found.\n", searchId);
+    fclose(file);
+}
+
+void deleteRecord() {
+    int searchId;
+    struct Record record;
+    FILE *file = fopen("records.txt", "r+b");
+    FILE *tempFile = fopen("temp.txt", "wb");
+    
+    printf("Enter the ID of the record to delete: ");
+    scanf("%d", &searchId);
+    
+    while (fread(&record, sizeof(struct Record), 1, file) == 1) {
+        if (record.id != searchId) {
+            fwrite(&record, sizeof(struct Record), 1, tempFile);
+        }
+    }
+    
+    fclose(file);
+    fclose(tempFile);
+    
+    remove("records.txt");
+    rename("temp.txt", "records.txt");
+    
+    printf("Record deleted successfully.\n");
+}
+
+int main() {
+    int choice;
+    
+    do {
+        printf("\nFile Management System\n");
+        printf("1. Create a record\n");
+        printf("2. Read all records\n");
+        printf("3. Update a record\n");
+        printf("4. Delete a record\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                createRecord();
+                break;
+            case 2:
+                readRecords();
+                break;
+            case 3:
+                updateRecord();
+                break;
+            case 4:
+                deleteRecord();
+                break;
+            case 5:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+                break;
+        }
+    } while (choice != 5);
+    
+    return 0;
+}
+
+//9.A
+
+#include <stdio.h>
+
+// Define the enumeration "Month"
+enum Month {
+    January = 1,
+    February,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October,
+    November,
+    December
+};
+
+int main() {
+    int monthNumber;
+    
+    // Input month number from the user
+    printf("Enter a month number (1-12): ");
+    scanf("%d", &monthNumber);
+    
+    // Check if the month number is valid
+    if (monthNumber < January || monthNumber > December) {
+        printf("Invalid month number!\n");
+    } else {
+        // Convert the month number to the corresponding month name using the enumeration
+        enum Month selectedMonth = monthNumber;
+        const char* monthName;
+        
+        switch (selectedMonth) {
+            case January:
+                monthName = "January";
+                break;
+            case February:
+                monthName = "February";
+                break;
+            case March:
+                monthName = "March";
+                break;
+            case April:
+                monthName = "April";
+                break;
+            case May:
+                monthName = "May";
+                break;
+            case June:
+                monthName = "June";
+                break;
+            case July:
+                monthName = "July";
+                break;
+            case August:
+                monthName = "August";
+                break;
+            case September:
+                monthName = "September";
+                break;
+            case October:
+                monthName = "October";
+                break;
+            case November:
+                monthName = "November";
+                break;
+            case December:
+                monthName = "December";
+                break;
+        }
+        
+        // Display the corresponding month name
+        printf("Month: %s\n", monthName);
+    }
+    
+    return 0;
+}
+
+//9.B
+
+def is_leap_year(year):
+    if year % 4 == 0:
+        if year % 100 == 0:
+            if year % 400 == 0:
+                return True
+            else:
+                return False
+        else:
+            return True
+    else:
+        return False
+
+def get_days_in_month(month, year):
+    if month == 2:
+        if is_leap_year(year):
+            return 29
+        else:
+            return 28
+    elif month in [4, 6, 9, 11]:
+        return 30
+    else:
+        return 31
+
+month = int(input("Enter the month (1-12): "))
+year = int(input("Enter the year: "))
+
+days_in_month = get_days_in_month(month, year)
+print("Number of days in the entered month:", days_in_month)
+
+
+//10
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    // Check if the correct number of arguments are provided
+    if (argc != 3) {
+        printf("Usage: %s <number_of_lines> <filename>\n", argv[0]);
+        return 1;
+    }
+
+    // Get the number of lines from the command line argument
+    int numLines = atoi(argv[1]);
+
+    // Open the file
+    FILE *file = fopen(argv[2], "r");
+    if (file == NULL) {
+        printf("Error opening the file.\n");
+        return 1;
+    }
+
+    // Read and print the first 'numLines' lines
+    char buffer[256];  // Assuming a maximum line length of 255 characters
+    int lineCount = 0;
+    while (fgets(buffer, sizeof(buffer), file) && lineCount < numLines) {
+        printf("%s", buffer);
+        lineCount++;
+    }
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
+
